@@ -1,7 +1,8 @@
 <h1 align="center">
   <img src="https://s.tarkus.me/graphql-logo.png" width="128" height="128" alt="GraphQL" /><br>
   GraphQL API and Relay Starter Kit
-  Forked from [https://github.com/kriasoft/graphql-starter](https://github.com/kriasoft/graphql-starter) 
+  <br/>
+  Forked from <a href="https://github.com/kriasoft/graphql-starter">kriasoft/graphql-starter</a> 
 </h1>
 
 ## Features
