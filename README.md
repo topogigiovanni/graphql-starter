@@ -1,11 +1,7 @@
 <h1 align="center">
   <img src="https://s.tarkus.me/graphql-logo.png" width="128" height="128" alt="GraphQL" /><br>
   GraphQL API and Relay Starter Kit
-  <br>
-  <a href="https://discord.com/invite/bSsv7XM"><img src="https://img.shields.io/badge/chat-discord-kriasoft.svg?logo=discord&style=flat" height="20"></a>
-  <a href="https://patreon.com/koistya"><img src="https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&style=flat" height="20"></a>
-  <a href="https://github.com/kriasoft/graphql-starter/stargazers"><img src="https://img.shields.io/github/stars/kriasoft/graphql-starter.svg?style=social&label=Star&maxAge=3600" height="20"></a>
-  <a href="https://twitter.com/koistya"><img src="https://img.shields.io/twitter/follow/koistya.svg?style=social&label=Follow&maxAge=3600" height="20"></a>
+  Forked from [https://github.com/kriasoft/graphql-starter](https://github.com/kriasoft/graphql-starter) 
 </h1>
 
 ## Features
