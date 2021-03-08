@@ -6,12 +6,7 @@ import * as React from "react";
 import { Update, Action } from "history";
 import { Environment } from "relay-runtime";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
-import {
-  CssBaseline,
-  PaletteMode,
-  ThemeProvider,
-  Toolbar,
-} from "@material-ui/core";
+import { CssBaseline, PaletteMode, ThemeProvider } from "@material-ui/core";
 
 import theme from "../theme";
 import { ErrorPage } from "./ErrorPage";

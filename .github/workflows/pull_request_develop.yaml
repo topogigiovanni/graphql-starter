@@ -58,6 +58,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment: develop
     needs: [build]
     timeout-minutes: 5
     steps:
