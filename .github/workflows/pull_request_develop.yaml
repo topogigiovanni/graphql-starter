@@ -23,7 +23,9 @@ env:
   GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }},
   PGUSER: ${{ secrets.PGUSER }},
   PGPASSWORD: ${{ secrets.PGPASSWORD }},
-  PGDATABASE: ${{ secrets.PGDATABASE }}
+  PGDATABASE: ${{ secrets.PGDATABASE }},
+  GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+  GOOGLE_CLOUD_REGION: ${{ secrets.GOOGLE_CLOUD_REGION }}
 
 jobs:
   build:
