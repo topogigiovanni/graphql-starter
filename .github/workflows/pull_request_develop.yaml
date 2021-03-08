@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: develop
     steps:
-      - uses: actions/checkout@v2
-      - run: yarn install --immutable --immutable-cache
+      # - uses: actions/checkout@v2
+      # - run: yarn install --immutable --immutable-cache
 
       - name: Authenticate on GCS
         uses: google-github-actions/setup-gcloud@v0.2.0
@@ -29,31 +29,3 @@ jobs:
           export_default_credentials: true
           project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
           service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-
-      # Analyze code for potential problems
-      - run: yarn prettier --check .
-      - run: yarn lint --no-cache
-
-      # Test
-      - run: yarn test
-
-      # Compile
-      - run: yarn workspace api build
-      - run: yarn workspace web build
-
-      # Upload to a cloud storage bucket
-      - run: yarn workspaces foreach -p run push
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v2
-      - run: yarn install
-      - name: Authenticate on GCS
-        uses: google-github-actions/setup-gcloud@v0.2.0
-        with:
-          project_id: ${{ secrets.GOOGLE_CLIENT_ID }}
-          service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-      - run: yarn workspaces foreach -p run deploy
