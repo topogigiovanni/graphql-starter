@@ -15,15 +15,15 @@ env:
   VERSION: "0.1"
   #VERSION: ${{ github.event.pull_request.number }}
   PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-  APP_NAME: ${{ secrets.APP_NAME }},
-  APP_ORIGIN: ${{ secrets.APP_ORIGIN }},
-  APP_ENV: ${{ secrets.APP_ENV }},
-  JWT_SECRET: ${{ secrets.JWT_SECRET }},
-  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }},
-  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }},
-  PGUSER: ${{ secrets.PGUSER }},
-  PGPASSWORD: ${{ secrets.PGPASSWORD }},
-  PGDATABASE: ${{ secrets.PGDATABASE }},
+  APP_NAME: ${{ secrets.APP_NAME }}
+  APP_ORIGIN: ${{ secrets.APP_ORIGIN }}
+  APP_ENV: ${{ secrets.APP_ENV }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  PGUSER: ${{ secrets.PGUSER }}
+  PGPASSWORD: ${{ secrets.PGPASSWORD }}
+  PGDATABASE: ${{ secrets.PGDATABASE }}
   GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
   GOOGLE_CLOUD_REGION: ${{ secrets.GOOGLE_CLOUD_REGION }}
 
