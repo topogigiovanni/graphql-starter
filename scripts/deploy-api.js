@@ -28,6 +28,7 @@ const serverName =
     ? env.PGSERVERNAME.replace(":", `:${region}:`)
     : env.PGSERVERNAME;
 
+console.log("server name:", serverName);
 console.log(`Deploying ${source} to ${env.APP_ENV}...`);
 
 const envVars = [
