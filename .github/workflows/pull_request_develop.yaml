@@ -28,7 +28,7 @@ jobs:
         with:
           export_default_credentials: true
           project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-          service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          service_account_key: "${{ secrets.GOOGLE_CLIENT_SECRET }}"
 
       # Analyze code for potential problems
       - run: yarn prettier --check .
