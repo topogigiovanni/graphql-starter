@@ -24,7 +24,7 @@ jobs:
       - run: yarn install --immutable --immutable-cache
 
       - name: Authenticate on GCS
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           export_default_credentials: true
           project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
