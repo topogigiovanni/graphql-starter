@@ -16,6 +16,7 @@ node_modules/
 !.yarn/sdks
 !.yarn/versions
 #.pnp.*
+package-lock.json
 
 # Logs
 yarn-debug.log*
