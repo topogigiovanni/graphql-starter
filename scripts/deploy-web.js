@@ -16,6 +16,7 @@ const globby = require("globby");
 const minimist = require("minimist");
 const FileType = require("file-type");
 const FormData = require("form-data");
+const extract = require("extract-zip");
 const { Storage } = require("@google-cloud/storage");
 
 const env = process.env;
@@ -23,6 +24,8 @@ const cwd = path.resolve(__dirname, "../dist/web");
 const args = minimist(process.argv.slice(2), {
   default: { env: "dev", version: env.VERSION, download: false },
 });
+
+console.log("cwd", cwd);
 
 // The name of the worker script (e.g. "proxy", "proxy-test", etc.)
 const name = `proxy${args.env === "prod" ? "" : `-${args.env}`}`;
@@ -57,13 +60,20 @@ async function deploy() {
 
   if (process.env.CI === "true" || args.download) {
     const file = `web_${args.version}.zip`;
+    const zipFilePath = path.resolve(cwd, "../web.zip");
     console.log(`Downloading gs://${env.PKG_BUCKET}/${file}`);
     const [contents] = await new Storage()
       .bucket(env.PKG_BUCKET)
       .file(file)
       .download();
-    fs.writeFileSync(path.resolve(cwd, "../web.zip"), contents, { flag: "wx" });
+    fs.writeFileSync(zipFilePath, contents, { flag: "wx" });
     // TODO: Unzip
+    try {
+      await extract(source, { dir: cwd });
+      console.log("Extraction complete");
+    } catch (err) {
+      // handle any errors
+    }
   }
 
   /*
