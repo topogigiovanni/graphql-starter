@@ -69,7 +69,7 @@ async function deploy() {
     fs.writeFileSync(zipFilePath, contents, { flag: "wx" });
     // TODO: Unzip
     try {
-      await extract(source, { dir: cwd });
+      await extract(zipFilePath, { dir: cwd });
       console.log("Extraction complete");
     } catch (err) {
       // handle any errors
