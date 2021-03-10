@@ -31,38 +31,38 @@ env:
   GOOGLE_CLOUD_REGION: ${{ secrets.GOOGLE_CLOUD_REGION }}
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   environment: develop
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: yarn install --immutable --immutable-cache
+  build:
+    runs-on: ubuntu-latest
+    environment: develop
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install --immutable --immutable-cache
 
-  #     - name: Authenticate on GCS
-  #       uses: google-github-actions/setup-gcloud@v0.2.0
-  #       with:
-  #         export_default_credentials: true
-  #         project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-  #         service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      - name: Authenticate on GCS
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          export_default_credentials: true
+          project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+          service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
-  #     # Analyze code for potential problems
-  #     - run: yarn prettier --check .
-  #     - run: yarn lint --no-cache
+      # Analyze code for potential problems
+      - run: yarn prettier --check .
+      - run: yarn lint --no-cache
 
-  #     # Test
-  #     - run: yarn test
+      # Test
+      - run: yarn test
 
-  #     # Compile
-  #     - run: yarn workspace api build
-  #     - run: yarn workspace web build
+      # Compile
+      - run: yarn workspace api build
+      - run: yarn workspace web build
 
-  #     # Upload to a cloud storage bucket
-  #     - run: yarn workspaces foreach -p run push --version ${{ env.VERSION }}
+      # Upload to a cloud storage bucket
+      - run: yarn workspaces foreach -p run push --version ${{ env.VERSION }}
 
   deploy:
     runs-on: ubuntu-latest
     environment: develop
-    # needs: [build]
+    needs: [build]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
