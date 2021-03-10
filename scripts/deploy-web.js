@@ -66,6 +66,7 @@ async function deploy() {
       .bucket(env.PKG_BUCKET)
       .file(file)
       .download();
+    fs.ensureDirSync(cwd);
     fs.writeFileSync(zipFilePath, contents, { flag: "wx" });
     // TODO: Unzip
     try {
