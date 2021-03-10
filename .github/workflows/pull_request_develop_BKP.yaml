@@ -2,51 +2,67 @@
 # to a cloud storage on each pull request to "main".
 # https://help.github.com/actions
 
-name: PR_copy
+name: PR
 
 on:
-  # pull_request:
-  #   branches: [main, master]
-  # push:
-  #   branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
 
 env:
-  CI: false
-  # VERSION: ${{ github.event.pull_request.number }}
+  CI: true
+  VERSION: "0.1"
+  #VERSION: ${{ github.event.pull_request.number }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
   PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+  APP_NAME: ${{ secrets.APP_NAME }}
+  APP_ORIGIN: ${{ secrets.APP_ORIGIN }}
+  APP_ENV: ${{ secrets.APP_ENV }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  PGUSER: ${{ secrets.PGUSER }}
+  PGPASSWORD: ${{ secrets.PGPASSWORD }}
+  PGDATABASE: ${{ secrets.PGDATABASE }}
+  GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+  GOOGLE_CLOUD_REGION: ${{ secrets.GOOGLE_CLOUD_REGION }}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    environment: develop
-    steps:
-      - uses: actions/checkout@v2
-      - run: yarn install --immutable --immutable-cache
+  # build:
+  #   runs-on: ubuntu-latest
+  #   environment: develop
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: yarn install --immutable --immutable-cache
 
-      - name: Authenticate on GCS
-        uses: google-github-actions/setup-gcloud@v0.2.0
-        with:
-          export_default_credentials: true
-          project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
-          service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  #     - name: Authenticate on GCS
+  #       uses: google-github-actions/setup-gcloud@v0.2.0
+  #       with:
+  #         export_default_credentials: true
+  #         project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+  #         service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
-      # Analyze code for potential problems
-      - run: yarn prettier --check .
-      - run: yarn lint --no-cache
+  #     # Analyze code for potential problems
+  #     - run: yarn prettier --check .
+  #     - run: yarn lint --no-cache
 
-      # Test
-      - run: yarn test
+  #     # Test
+  #     - run: yarn test
 
-      # Compile
-      - run: yarn workspace api build
-      - run: yarn workspace web build
+  #     # Compile
+  #     - run: yarn workspace api build
+  #     - run: yarn workspace web build
 
-      # Upload to a cloud storage bucket
-      - run: yarn workspaces foreach -p run push
+  #     # Upload to a cloud storage bucket
+  #     - run: yarn workspaces foreach -p run push --version ${{ env.VERSION }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build]
+    environment: develop
+    # needs: [build]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v2
@@ -54,6 +70,7 @@ jobs:
       - name: Authenticate on GCS
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          project_id: ${{ secrets.GOOGLE_CLIENT_ID }}
+          export_default_credentials: true
+          project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
           service_account_key: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-      - run: yarn workspaces foreach -p run deploy
+      - run: yarn workspaces foreach -p run deploy --version ${{ env.VERSION }}

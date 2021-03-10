@@ -9,7 +9,7 @@
  */
 
 require("env");
-const fs = require("fs");
+const fs = require("fs-extra");
 const got = require("got");
 const path = require("path");
 const globby = require("globby");
